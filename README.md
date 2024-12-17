@@ -1,5 +1,6 @@
 # primitive-deep-equal
 
+[![CodeQL](https://github.com/Pasan-Kottearachchi/primitive-deep-equal/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Pasan-Kottearachchi/primitive-deep-equal/actions/workflows/github-code-scanning/codeql)
 [![codecov](https://codecov.io/github/Pasan-Kottearachchi/primitive-deep-equal/graph/badge.svg?token=I9LYGBJF4M)](https://codecov.io/github/Pasan-Kottearachchi/primitive-deep-equal)
 ![GitHub Release](https://img.shields.io/github/v/release/Pasan-Kottearachchi/primitive-deep-equal)
 ![NPM Version](https://img.shields.io/npm/v/primitive-deep-equal)

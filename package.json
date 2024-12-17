@@ -1,5 +1,5 @@
 {
-  "name": "is-deep-equal",
+  "name": "primitive-deep-equal",
   "version": "1.0.0",
   "description": "A utility to deep compare objects, arrays, and primitives.",
   "main": "dist/index.js",

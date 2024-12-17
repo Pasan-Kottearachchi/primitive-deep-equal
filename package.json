@@ -1,0 +1,42 @@
+{
+  "name": "is-deep-equal",
+  "version": "1.0.0",
+  "description": "A utility to deep compare objects, arrays, and primitives.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
+    "lint": "eslint 'src/**/*.ts'",
+    "lint:fix": "eslint 'src/**/*.ts' --fix",
+    "test": "jest --config jest.config.json",
+    "test:coverage": "jest --config jest.config.json --coverage",
+    "release": "semantic-release --branches main",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "deep-equal",
+    "object-equality",
+    "recursive-compare",
+    "typescript",
+    "utility",
+    "is-equal",
+    "array-utils"
+  ],
+  "author": "Pasan-Kottearachchi",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@typescript-eslint/eslint-plugin": "^8.4.0",
+    "@typescript-eslint/parser": "^8.4.0",
+    "eslint": "^9.10.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.9.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.3.3",
+    "semantic-release": "^24.1.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.5.4"
+  }
+}

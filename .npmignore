@@ -1,0 +1,12 @@
+src
+tsconfig.json
+node_modules
+test
+coverage
+.github
+publish
+.gitignore
+eslint.config.mjs
+jest.config.json
+tsconfig.jest.json
+.releaserc.json

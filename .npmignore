@@ -4,9 +4,11 @@ node_modules
 test
 coverage
 .github
+.idea
 publish
 .gitignore
 eslint.config.mjs
 jest.config.json
 tsconfig.jest.json
 .releaserc.json
+package-lock.json

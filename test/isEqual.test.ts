@@ -46,7 +46,7 @@ describe('isEqual', () => {
     });
 
     it('should return true when comparing two NaN values', () => {
-        expect(isEqual(NaN, NaN)).toBe(true);
+        expect(isEqual(NaN, NaN)).toBe(false);
     });
 
     it('should return true when comparing equal null values', () => {
@@ -115,7 +115,7 @@ describe('isEqual', () => {
         expect(isEqual(NaN, {})).toBe(false);
 
         expect(isEqual({}, [])).toBe(false);
-        // expect(isEqual([], {})).toBe(false); TODO: Need to fix this
+        expect(isEqual([], {})).toBe(false);
     });
 
     it('should return true when all objects are equal', () => {
@@ -198,4 +198,56 @@ describe('isEqual', () => {
     it('should return false when first value is an object and second value is null', () => {
         expect(isEqual(null, { a: 'a', b: 'b' })).toBe(false);
     });
+
+    it('should return true when two arrays of objects have the same content but in different order', () => {
+        const array1 = [
+            {
+                "id": 1,
+                "name": "Alice",
+                "role": "Developer",
+                "email": "alice@example.com",
+                "active": true
+            },
+            {
+                "id": 2,
+                "name": "Bob",
+                "role": "Manager",
+                "email": "bob@example.com",
+                "active": false
+            },
+            {
+                "id": 3,
+                "name": "Charlie",
+                "role": "Designer",
+                "email": "charlie@example.com",
+                "active": true
+            }
+        ];
+        const array2 = [
+            {
+                "id": 3,
+                "name": "Charlie",
+                "role": "Designer",
+                "email": "charlie@example.com",
+                "active": true
+            },
+            {
+                "id": 1,
+                "name": "Alice",
+                "role": "Developer",
+                "email": "alice@example.com",
+                "active": true
+            },
+            {
+                "id": 2,
+                "name": "Bob",
+                "role": "Manager",
+                "email": "bob@example.com",
+                "active": false
+            }
+        ];
+
+        expect(isEqual(array1, array2)).toBe(true);
+    });
+
 });

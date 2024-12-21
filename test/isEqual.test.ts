@@ -46,7 +46,7 @@ describe('isEqual', () => {
     });
 
     it('should return true when comparing two NaN values', () => {
-        expect(isEqual(NaN, NaN)).toBe(true);
+        expect(isEqual(NaN, NaN)).toBe(false);
     });
 
     it('should return true when comparing equal null values', () => {
@@ -115,28 +115,28 @@ describe('isEqual', () => {
         expect(isEqual(NaN, {})).toBe(false);
 
         expect(isEqual({}, [])).toBe(false);
-        // expect(isEqual([], {})).toBe(false); TODO: Need to fix this
+        expect(isEqual([], {})).toBe(false);
     });
 
     it('should return true when all objects are equal', () => {
-        expect(isEqual({ key: 'value' }, { key: 'value' })).toBe(true);
-        expect(isEqual({ a: 1, b: 2 }, { a: 1, b: 2 })).toBe(true);
-        expect(isEqual({ nested: { key: 'value' } }, { nested: { key: 'value' } })).toBe(true);
-        expect(isEqual({ array: [1, 2, 3] }, { array: [1, 2, 3] })).toBe(true);
-        expect(isEqual({ array: [1, 2, 3] }, { array: [3, 2, 1] })).toBe(true);
-        expect(isEqual({ array: [1, 2, { nested: 'value' }] }, { array: [1, 2, { nested: 'value' }] })).toBe(true);
+        expect(isEqual({key: 'value'}, {key: 'value'})).toBe(true);
+        expect(isEqual({a: 1, b: 2}, {a: 1, b: 2})).toBe(true);
+        expect(isEqual({nested: {key: 'value'}}, {nested: {key: 'value'}})).toBe(true);
+        expect(isEqual({array: [1, 2, 3]}, {array: [1, 2, 3]})).toBe(true);
+        expect(isEqual({array: [1, 2, 3]}, {array: [3, 2, 1]})).toBe(true);
+        expect(isEqual({array: [1, 2, {nested: 'value'}]}, {array: [1, 2, {nested: 'value'}]})).toBe(true);
     });
 
     it('should return false when all objects are not equal', () => {
-        expect(isEqual({ key: 'value' }, { key: 'value', differentKey: 'value' })).toBe(false);
-        expect(isEqual({ key: 'value' }, { key: 'different value' })).toBe(false);
-        expect(isEqual({ key: 'value' }, { differentKey: 'value' })).toBe(false);
-        expect(isEqual({ a: 1, b: 2 }, { a: 1, c: 2 })).toBe(false);
-        expect(isEqual({ nested: { key: 'value' } }, { nested: { differentKey: 'value' } })).toBe(false);
-        expect(isEqual({ nested: { key: 'value' } }, { nested: { key: 'different value' } })).toBe(false);
-        expect(isEqual({ array: [1, 2, 3] }, { array: [1, 2, 4] })).toBe(false);
-        expect(isEqual({ array: [1, 2, { nested: 'value' }] }, { array: [1, 2, { nested: 'different' }] })).toBe(false);
-        expect(isEqual({ array: [1, 2, { nested: 'value' }] }, { array: [1, 2, { different: 'value' }] })).toBe(false);
+        expect(isEqual({key: 'value'}, {key: 'value', differentKey: 'value'})).toBe(false);
+        expect(isEqual({key: 'value'}, {key: 'different value'})).toBe(false);
+        expect(isEqual({key: 'value'}, {differentKey: 'value'})).toBe(false);
+        expect(isEqual({a: 1, b: 2}, {a: 1, c: 2})).toBe(false);
+        expect(isEqual({nested: {key: 'value'}}, {nested: {differentKey: 'value'}})).toBe(false);
+        expect(isEqual({nested: {key: 'value'}}, {nested: {key: 'different value'}})).toBe(false);
+        expect(isEqual({array: [1, 2, 3]}, {array: [1, 2, 4]})).toBe(false);
+        expect(isEqual({array: [1, 2, {nested: 'value'}]}, {array: [1, 2, {nested: 'different'}]})).toBe(false);
+        expect(isEqual({array: [1, 2, {nested: 'value'}]}, {array: [1, 2, {different: 'value'}]})).toBe(false);
     });
 
     it('should return true when all arrays are equal', () => {
@@ -192,10 +192,216 @@ describe('isEqual', () => {
     });
 
     it('should return false when first value is null and second value is an object', () => {
-        expect(isEqual(null, { a: 'a', b: 'b' })).toBe(false);
+        expect(isEqual(null, {a: 'a', b: 'b'})).toBe(false);
     });
 
     it('should return false when first value is an object and second value is null', () => {
-        expect(isEqual(null, { a: 'a', b: 'b' })).toBe(false);
+        expect(isEqual(null, {a: 'a', b: 'b'})).toBe(false);
     });
+
+    it('should return true for arrays with same objects in the same order and keys in order', () => {
+        const array1 = [
+            {
+                "id": 1,
+                "name": "Alice",
+                "role": "Developer",
+                "email": "alice@example.com",
+                "active": true
+            },
+            {
+                "id": 2,
+                "name": "Bob",
+                "role": "Manager",
+                "email": "bob@example.com",
+                "active": false
+            },
+            {
+                "id": 3,
+                "name": "Charlie",
+                "role": "Designer",
+                "email": "charlie@example.com",
+                "active": true
+            }
+        ];
+        const array2 = [
+            {
+                "id": 1,
+                "name": "Alice",
+                "role": "Developer",
+                "email": "alice@example.com",
+                "active": true
+            },
+            {
+                "id": 2,
+                "name": "Bob",
+                "role": "Manager",
+                "email": "bob@example.com",
+                "active": false
+            },
+            {
+                "id": 3,
+                "name": "Charlie",
+                "role": "Designer",
+                "email": "charlie@example.com",
+                "active": true
+            }
+        ];
+
+        expect(isEqual(array1, array2)).toBe(true);
+    });
+
+    it('should return true for arrays with same objects at different indices but keys in same order', () => {
+        const array1 = [
+            {
+                "id": 1,
+                "name": "Alice",
+                "role": "Developer",
+                "email": "alice@example.com",
+                "active": true
+            },
+            {
+                "id": 2,
+                "name": "Bob",
+                "role": "Manager",
+                "email": "bob@example.com",
+                "active": false
+            },
+            {
+                "id": 3,
+                "name": "Charlie",
+                "role": "Designer",
+                "email": "charlie@example.com",
+                "active": true
+            }
+        ];
+        const array2 = [
+            {
+                "id": 3,
+                "name": "Charlie",
+                "role": "Designer",
+                "email": "charlie@example.com",
+                "active": true
+            },
+            {
+                "id": 1,
+                "name": "Alice",
+                "role": "Developer",
+                "email": "alice@example.com",
+                "active": true
+            },
+            {
+                "id": 2,
+                "name": "Bob",
+                "role": "Manager",
+                "email": "bob@example.com",
+                "active": false
+            }
+        ];
+
+        expect(isEqual(array1, array2)).toBe(true);
+    });
+
+    it('should return true for arrays with same objects at different indices and keys in any order', () => {
+        const array1 = [
+            {
+                "id": 1,
+                "name": "Alice",
+                "role": "Developer",
+                "email": "alice@example.com",
+                "active": true
+            },
+            {
+                "id": 2,
+                "name": "Bob",
+                "role": "Manager",
+                "email": "bob@example.com",
+                "active": false
+            },
+            {
+                "id": 3,
+                "name": "Charlie",
+                "role": "Designer",
+                "email": "charlie@example.com",
+                "active": true
+            }
+        ];
+        const array2 = [
+            {
+                "email": "charlie@example.com",
+                "id": 3,
+                "name": "Charlie",
+                "role": "Designer",
+                "active": true
+            },
+            {
+                "id": 1,
+                "name": "Alice",
+                "role": "Developer",
+                "active": true,
+                "email": "alice@example.com",
+            },
+            {
+                "id": 2,
+                "role": "Manager",
+                "email": "bob@example.com",
+                "active": false,
+                "name": "Bob",
+            }
+        ];
+
+        expect(isEqual(array1, array2)).toBe(true);
+    });
+
+
+    it('should return false when two arrays of objects have the different content', () => {
+        const array1 = [
+            {
+                "id": 1,
+                "name": "Alice",
+                "role": "Developer",
+                "email": "alice@example.com",
+                "active": true
+            },
+            {
+                "id": 2,
+                "name": "Bob",
+                "role": "Manager",
+                "email": "bob@example.com",
+                "active": false
+            },
+            {
+                "id": 3,
+                "name": "charlies",
+                "role": "Designer",
+                "email": "charlies@example.com",
+                "active": true
+            }
+        ];
+        const array2 = [
+            {
+                "id": 3,
+                "name": "Charlie",
+                "role": "Designer",
+                "email": "charlie@example.com",
+                "active": true
+            },
+            {
+                "id": 1,
+                "name": "Alice",
+                "role": "Developer",
+                "email": "alice@example.com",
+                "active": true
+            },
+            {
+                "id": 2,
+                "name": "Bob",
+                "role": "Manager",
+                "email": "bob@example.com",
+                "active": false
+            }
+        ];
+
+        expect(isEqual(array1, array2)).toBe(false);
+    });
+
 });

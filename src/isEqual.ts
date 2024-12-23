@@ -1,9 +1,4 @@
 const deepCompare = (item1: unknown, item2: unknown): boolean => {
-    // Check if both items are NaN
-    if (typeof item1 === "number" && typeof item2 === "number" && Number.isNaN(item1) && Number.isNaN(item2)) {
-        return true;
-    }
-
     // Check if both items are of the same type
     if (typeof item1 !== typeof item2) {
         return false;

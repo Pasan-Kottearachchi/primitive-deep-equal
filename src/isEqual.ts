@@ -33,10 +33,6 @@ const deepCompare = (item1: unknown, item2: unknown): boolean => {
             const set1 = new Set(item1.map(normalizeObject));
             const set2 = new Set(item2.map(normalizeObject));
 
-            if (set1.size !== set2.size) {
-                return false;
-            }
-
             for (const item of set1) {
                 if (!set2.has(item)) {
                     return false;

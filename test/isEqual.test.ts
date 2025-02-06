@@ -404,4 +404,9 @@ describe('isEqual', () => {
         expect(isEqual(array1, array2)).toBe(false);
     });
 
+//     test for 2 empty objects
+    it('should return true when comparing two empty objects', () => {
+        expect(isEqual({}, {})).toBe(true);
+    });
+
 });

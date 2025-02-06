@@ -49,17 +49,11 @@ const deepCompare = (item1: unknown, item2: unknown): boolean => {
     }
 
     // If both items are objects
-    if (!Array.isArray(item1) && typeof item1 === "object" && typeof item2 === "object") {
+    if (!Array.isArray(item1) && !Array.isArray(item2) && typeof item1 === "object" && typeof item2 === "object") {
         const keys1 = Object.keys(item1);
         const keys2 = Object.keys(item2);
 
-        // Check if objects have same number of properties
-        if (keys1.length !== keys2.length) {
-            return false;
-        }
-
-        // Check if objects have same keys
-        if (!keys2.some((key, keyIndex) => key === keys1[keyIndex])) {
+        if (keys1.sort().toString() !== keys2.sort().toString()) {
             return false;
         }
 
